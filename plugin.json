@@ -1,0 +1,16 @@
+{
+    "id": "nodebb-plugin-assign-newuser-to-group"
+   ,"name": "NodeBB New User group assign Plugin"
+   ,"description": "A plugin for NodeBB to assign new users to a specified group."
+   ,"url": "https://github.com/pichalite/nodebb-plugin-assign-newuser-to-group"
+   ,"library": "./library.js"
+   ,"staticDirs": {
+        "public": "public"
+    }
+   ,"templates": "public/templates"
+   ,"hooks": [
+        { "hook": "static:app.load", "method": "init" }, 
+        { "hook": "filter:admin.header.build", "method": "admin.menu" },
+        { "hook": "action:user.create", "method": "assignUserToGroup" }
+    ]
+}
