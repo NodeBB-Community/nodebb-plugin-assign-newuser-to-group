@@ -22,6 +22,6 @@
   },
   "homepage": "https://github.com/pichalite/nodebb-plugin-assign-newuser-to-group",
   "nbbpm": {
-    "compatibility": "^0.7.0"
+    "compatibility": "^0.7.0 || ^1.0.0"
   }
 }
