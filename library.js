@@ -25,9 +25,9 @@ AssignNewUser.init = function(params, callback) {
 	callback();
 };
 
-AssignNewUser.assignUserToGroup = function(userData) {
-    if (userGroup != null) {
-        groups.join(userGroup, userData.uid);
+AssignNewUser.assignUserToGroup = function(hookData) {
+    if (userGroup != null && hookData && hookData.user) {
+        groups.join(userGroup, hookData.user.uid);
     }
 };
 
