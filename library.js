@@ -28,13 +28,12 @@ AssignNewUser.assignUserToGroup = async function (hookData) {
 };
 
 AssignNewUser.admin = {
-	menu: function(custom_header, callback) {
-		custom_header.plugins.push({
+	menu: async function(header) {
+		header.plugins.push({
 			"route": '/plugins/assign-newuser-to-group',
 			"icon": 'fa-check',
 			"name": 'Assign new user to group'
 		});
-		console.log('wtf', custom_header)
-		callback(null, custom_header);
+		return header;
 	}
 };
