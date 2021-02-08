@@ -1,33 +1,29 @@
-var	fs = require('fs'),
-    groups = module.parent.require('./groups'),
-	winston = module.parent.require('winston'),
-	Meta = module.parent.require('./meta'),
+const winston = require.main.require('winston');
+const groups = require.main.require('./src/groups');
+const Meta = require.main.require('./src/meta');
 
-	AssignNewUser = {},
-    userGroup = null;
+const AssignNewUser = module.exports;
+let userGroup = null;
 
-AssignNewUser.init = function(params, callback) {
+AssignNewUser.init = async function(params) {
 	function render(req, res, next) {
 		res.render('admin/plugins/assign-newuser-to-group', {});
 	}
 
-    Meta.settings.get('assign-newuser-to-group', function(err, settings) {
-		if (!err && settings && settings.userGroup) {
-			userGroup = settings.userGroup;
-		} else {
-			winston.error('[plugins/assign-newuser-to-group] User group not set!');
-		}
-	});
-    
+    const settings = await Meta.settings.get('assign-newuser-to-group');
+	if (settings && settings.userGroup) {
+		userGroup = settings.userGroup;
+	} else {
+		winston.error('[plugins/assign-newuser-to-group] User group not set!');
+	}
+
 	params.router.get('/admin/plugins/assign-newuser-to-group', params.middleware.admin.buildHeader, render);
 	params.router.get('/api/admin/plugins/assign-newuser-to-group', render);
-    
-	callback();
 };
 
-AssignNewUser.assignUserToGroup = function(hookData) {
+AssignNewUser.assignUserToGroup = async function (hookData) {
     if (userGroup != null && hookData && hookData.user) {
-        groups.join(userGroup, hookData.user.uid);
+        await groups.join(userGroup, hookData.user.uid);
     }
 };
 
@@ -38,9 +34,7 @@ AssignNewUser.admin = {
 			"icon": 'fa-check',
 			"name": 'Assign new user to group'
 		});
-
+		console.log('wtf', custom_header)
 		callback(null, custom_header);
 	}
 };
-
-module.exports = AssignNewUser;
