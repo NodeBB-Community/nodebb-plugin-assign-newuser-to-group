@@ -1,6 +1,6 @@
 {
   "name": "nodebb-plugin-assign-newuser-to-group",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A plugin for NodeBB to assign new users to a specified group.",
   "main": "library.js",
   "repository": {
