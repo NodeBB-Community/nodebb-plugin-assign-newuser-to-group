@@ -1,15 +1,13 @@
 const winston = require.main.require('winston');
 const groups = require.main.require('./src/groups');
 const Meta = require.main.require('./src/meta');
+const routeHelpers = require.main.require('./src/routes/helpers');
 
 const AssignNewUser = module.exports;
 let userGroup = null;
 
 AssignNewUser.init = async function(params) {
-	function render(req, res, next) {
-		res.render('admin/plugins/assign-newuser-to-group', {});
-	}
-
+	const { router } = params;
     const settings = await Meta.settings.get('assign-newuser-to-group');
 	if (settings && settings.userGroup) {
 		userGroup = settings.userGroup;
@@ -17,12 +15,20 @@ AssignNewUser.init = async function(params) {
 		winston.error('[plugins/assign-newuser-to-group] User group not set!');
 	}
 
-	params.router.get('/admin/plugins/assign-newuser-to-group', params.middleware.admin.buildHeader, render);
-	params.router.get('/api/admin/plugins/assign-newuser-to-group', render);
+	routeHelpers.setupAdminPageRoute(router, '/admin/plugins/assign-newuser-to-group', function (req, res, next) {
+		res.render('admin/plugins/assign-newuser-to-group', {
+			title:  'Assign new user to group',
+		});
+	});
 };
 
 AssignNewUser.assignUserToGroup = async function (hookData) {
     if (userGroup != null && hookData && hookData.user) {
+		const exists = await groups.exists(userGroup);
+		if (!exists) {
+			winston.error(`[plugins/assign-newuser-to-group] User group "${userGroup}" does not exist!`);
+			return;
+		}
         await groups.join(userGroup, hookData.user.uid);
     }
 };

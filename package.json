@@ -5,7 +5,7 @@
   "main": "library.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/pichalite/nodebb-plugin-assign-newuser-to-group"
+    "url": "https://github.com/NodeBB-Community/nodebb-plugin-assign-newuser-to-group"
   },
   "keywords": [
     "nodebb",
@@ -18,10 +18,10 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/pichalite/nodebb-plugin-assign-newuser-to-group/issues"
+    "url": "https://github.com/NodeBB-Community/nodebb-plugin-assign-newuser-to-group/issues"
   },
-  "homepage": "https://github.com/pichalite/nodebb-plugin-assign-newuser-to-group",
+  "homepage": "https://github.com/NodeBB-Community/nodebb-plugin-assign-newuser-to-group",
   "nbbpm": {
-    "compatibility": "^1.16.0"
+    "compatibility": "^3.2.x || ^4.x"
   }
 }
