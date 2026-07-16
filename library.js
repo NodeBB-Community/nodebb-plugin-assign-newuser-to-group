@@ -1,7 +1,7 @@
-const winston = require.main.require('winston');
-const groups = require.main.require('./src/groups');
-const Meta = require.main.require('./src/meta');
-const routeHelpers = require.main.require('./src/routes/helpers');
+const winston = nodebb.require('winston');
+const groups = nodebb.require('./src/groups');
+const Meta = nodebb.require('./src/meta');
+const routeHelpers = nodebb.require('./src/routes/helpers');
 
 const AssignNewUser = module.exports;
 let userGroup = null;
@@ -36,9 +36,9 @@ AssignNewUser.assignUserToGroup = async function (hookData) {
 AssignNewUser.admin = {
 	menu: async function(header) {
 		header.plugins.push({
-			"route": '/plugins/assign-newuser-to-group',
-			"icon": 'fa-check',
-			"name": 'Assign new user to group'
+			route: '/plugins/assign-newuser-to-group',
+			icon: 'fa-check',
+			name: 'Assign new user to group'
 		});
 		return header;
 	}
